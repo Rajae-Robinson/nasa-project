@@ -44,12 +44,22 @@ async function scheduleNewLaunch(launch) {
     await saveLaunch(newLaunch)
 }
 
-function abortLaunch(id) {
-    // const launch = launches.get(id)
-    // launch.upcoming = false
-    // launch.success = false
-    // return launch
-    return undefined
+async function abortLaunch(id) {
+    const launch = await launches.findOne({flightNumber: id})
+
+    if(!launch) return {code: 404}
+
+    launch.upcoming = false
+    launch.success = false
+
+    try {
+        await launch.save()
+    } catch(err) {
+        console.error('Error aborting launch:', error);
+        return {code: 500}
+    }
+    
+    return {code: 200}
 }
 
 module.exports = {
