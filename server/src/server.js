@@ -1,11 +1,9 @@
-
 const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 
 const http = require('http')
 
 const app = require('./app')
-
 const { loadPlanetsData } = require('./models/planets-model') 
 
 dotenv.config({ path: './config.env' });
