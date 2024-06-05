@@ -1,6 +1,5 @@
 const path = require('path')
 
-const dotenv = require('dotenv');
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -10,7 +9,6 @@ const planetsRouter = require('./routes/planets/planets-router')
 const launchesRouter = require('./routes/launches/launches-router')
 
 const app = express()
-dotenv.config({ path: './config.env' });
 
 app.use(cors({
     origin: 'http://localhost:3000'

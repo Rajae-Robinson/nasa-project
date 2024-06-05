@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+require('dotenv').config();
 
 const http = require('http')
 
@@ -7,7 +7,6 @@ const { mongoConnect } = require('./services/mongo')
 
 const { loadPlanetsData } = require('./models/planets-model') 
 
-dotenv.config({ path: './config.env' })
 const PORT = process.env.PORT || 3001
 const server = http.createServer(app)
 
