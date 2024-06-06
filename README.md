@@ -1,4 +1,4 @@
-# Nasa Mission Control
+# NASA Mission Control
 
 Project Description
 
@@ -6,7 +6,7 @@ Project Description
 - React 17 (TODO: upgrade to React 18; transition to react-query)
 - Arwes theme
 - React hooks
-- Login page with Social Sign-on
+- Login page with Social Sign-on (TODO)
 - Pagination for history page (TODO)
 
 ## Backend
