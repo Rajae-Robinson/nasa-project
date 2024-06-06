@@ -13,7 +13,7 @@ describe('GET /launches test', () => {
 
     test('should respond with 200 success', async () => {
         await request(app)
-            .get('/launches')
+            .get('/v1/launches')
             .expect(200)
     })
 })

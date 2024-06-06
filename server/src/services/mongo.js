@@ -1,14 +1,9 @@
-const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 
-dotenv.config({ path: './config.env' });
+const dotenv = require('dotenv').config();
 
 // DEV database
 const DB = process.env.DB_CONNECTION_STRING;
-
-mongoose.connection.once('open', () => {
-    console.log('Mongo connection established.')
-})
 
 mongoose.connection.on('error', (err) => {
     console.error(err)
