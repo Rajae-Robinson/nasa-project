@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 
 // DEV database
 const DB = process.env.DB_CONNECTION_STRING;
