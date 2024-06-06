@@ -6,8 +6,9 @@ async function httpGetPlanets() {
 }
 
 async function httpGetLaunches() {
-  const response = await fetch(`${API_BASE_URL}/launches`)
+  const response = await fetch(`${API_BASE_URL}/launches?limit=20`)
   return await response.json()
+  // implement pagination
   // Load launches, sort by flight number, and return as JSON.
 }
 
