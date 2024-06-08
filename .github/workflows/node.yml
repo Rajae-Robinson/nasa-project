@@ -10,7 +10,7 @@ jobs:
   build:
     env:
       CI: true
-      TEST_DB: mongodb://localhost/nasa-test
+      TEST_DB_CONNECTION_STRING: mongodb://localhost/nasa-test
       
     runs-on: ubuntu-latest
 
