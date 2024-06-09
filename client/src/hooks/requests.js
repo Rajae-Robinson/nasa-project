@@ -1,4 +1,8 @@
-const API_BASE_URL = "http://localhost:3001/v1"
+let API_BASE_URL = 'v1'
+
+if (process.env.NODE_ENV === 'development') {
+  API_BASE_URL = 'http://localhost:3001/v1'
+}
 
 async function httpGetPlanets() {
   const response = await fetch(`${API_BASE_URL}/planets`)
