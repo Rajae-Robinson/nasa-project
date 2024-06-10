@@ -18,3 +18,8 @@ Project Description
 - Unit Testing - Jest
 - Security - helmet.js, JWT auth, OAuth2, cookie based session storage (TODO)
 - MongoDB
+
+## CI/CD 
+- GitHub Actions
+- Docker
+- AWS EC2 (http://3.17.142.190:3001/)
