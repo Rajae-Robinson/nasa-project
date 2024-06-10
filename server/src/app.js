@@ -8,7 +8,8 @@ const v1API = require('./routes/v1')
 
 const app = express()
 
-app.use(helmet())
+// diasble helmet until SSL setup on prod
+// app.use(helmet())
 
 app.use(cors({
     origin: 'http://localhost:3000'
