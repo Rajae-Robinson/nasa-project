@@ -1,0 +1,35 @@
+name: Build and Deploy Docker Image to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
+
+    - name: Build Docker image
+      run: docker build -t rajae2024/nasa-project:latest .
+
+    - name: Push Docker image
+      run: docker push rajae2024/nasa-project:latest
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          docker pull rajae2024/nasa-project:latest
+          docker stop nasa-proj-container || true
+          docker rm nasa-proj-container || true
+          docker run -d --name nasa-proj-container -p 3001:3001 rajae2024/nasa-project:latest
