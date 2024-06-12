@@ -10,10 +10,13 @@ async function httpGetPlanets() {
 }
 
 async function httpGetLaunches() {
-  const response = await fetch(`${API_BASE_URL}/launches?limit=20`)
+  const response = await fetch(`${API_BASE_URL}/launches`)
   return await response.json()
-  // implement pagination
-  // Load launches, sort by flight number, and return as JSON.
+}
+
+async function httpPaginateLaunches({page, limit}) {
+  const response = await fetch(`${API_BASE_URL}/launches?page=${page}&limit=${limit}`)
+  return await response.json()
 }
 
 async function httpSubmitLaunch(launch) {
@@ -43,6 +46,7 @@ async function httpAbortLaunch(id) {
 export {
   httpGetPlanets,
   httpGetLaunches,
+  httpPaginateLaunches,
   httpSubmitLaunch,
   httpAbortLaunch,
 };

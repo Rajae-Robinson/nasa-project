@@ -54,6 +54,7 @@ const AppLayout = props => {
   const {
     launches,
     isPendingLaunch,
+    paginateLaunches,
     submitLaunch,
     abortLaunch,
   } = useLaunches(onSuccessSound, onAbortSound, onFailureSound);
@@ -91,7 +92,7 @@ const AppLayout = props => {
                 abortLaunch={abortLaunch} />
             </Route>
             <Route exact path="/history">
-              <History entered={anim.entered} launches={launches} />
+              <History entered={anim.entered} paginateLaunches={paginateLaunches}/>
             </Route>
           </Switch>
           </div>

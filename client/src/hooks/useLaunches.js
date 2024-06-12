@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import {
   httpGetLaunches,
+  httpPaginateLaunches,
   httpSubmitLaunch,
   httpAbortLaunch,
 } from './requests';
@@ -13,6 +14,11 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
   const getLaunches = useCallback(async () => {
     const fetchedLaunches = await httpGetLaunches();
     saveLaunches(fetchedLaunches);
+  }, []);
+
+  const paginateLaunches = useCallback(async ({page, limit}) => {
+    const fetchedLaunches = await httpPaginateLaunches({page, limit});
+    return fetchedLaunches
   }, []);
 
   useEffect(() => {
@@ -36,7 +42,7 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
 
     const success = response.ok;
     if (success) {
-      getLaunches();
+      // getLaunches();
       setTimeout(() => {
         setPendingLaunch(false);
         onSuccessSound();
@@ -44,7 +50,7 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
     } else {
       onFailureSound();
     }
-  }, [getLaunches, onSuccessSound, onFailureSound]);
+  }, [ onSuccessSound, onFailureSound]);
 
   const abortLaunch = useCallback(async (id) => {
     const response = await httpAbortLaunch(id);
@@ -61,6 +67,7 @@ function useLaunches(onSuccessSound, onAbortSound, onFailureSound) {
   return {
     launches,
     isPendingLaunch,
+    paginateLaunches,
     submitLaunch,
     abortLaunch,
   };
