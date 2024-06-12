@@ -1,6 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Appear, Table, Paragraph } from "arwes";
 
+const buttonStyle = {
+  background: "none",
+  border: "none",
+  color: "#26DAFD",
+  fontWeight: "bold",
+  cursor: "pointer",
+}
 const History = props => {
   const [currentPage, setCurrentPage] = useState(1)
   const [launches, setLaunches] = useState([])
@@ -39,8 +46,8 @@ const History = props => {
         <table style={{tableLayout: "fixed"}}>
           <thead>
             <tr>
-              <th style={{width: "2rem"}}></th>
-              <th style={{width: "3rem"}}>No.</th>
+              <th style={{width: "3rem"}}></th>
+              <th style={{width: "4rem"}}>No.</th>
               <th style={{width: "9rem"}}>Date</th>
               <th>Mission</th>
               <th style={{width: "7rem"}}>Rocket</th>
@@ -51,9 +58,19 @@ const History = props => {
             {tableBody}
           </tbody>
           <tfoot>
-            <td><button onClick={() => setCurrentPage((old) => Math.max(old - 1, 1))}>Previous</button></td>
-            <td><span>Current Page: {currentPage}</span></td>
-            <td><button onClick={() => setCurrentPage((old) => old + 1 )}>Next</button></td>
+            <td colspan="2">
+              <button style={buttonStyle} onClick={() => setCurrentPage((old) => Math.max(old - 1, 1))}>
+              {'<< Previous'}
+              </button>
+            </td>
+            <td colspan="2" style={{ textAlign: "center" }}>
+              <span>Current Page: {currentPage}</span>
+            </td>
+            <td colspan="2" style={{ textAlign: "right" }}>
+              <button style={buttonStyle} onClick={() => setCurrentPage((old) => old + 1 )}>
+                {'Next >>'}
+              </button>
+            </td>
           </tfoot>
         </table>
       </Table>
