@@ -1,4 +1,6 @@
-# NASA Mission Control
+# NASA Mission Control (DEMO Project)
+
+*This is not an official site and is not affiliated with NASA or SpaceX in any way. For educational purposes only.*
 
 Project Description
 
