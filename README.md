@@ -9,7 +9,7 @@ Project Description
 - Arwes theme
 - React hooks
 - Login page with Social Sign-on (TODO)
-- Pagination for history page (TODO)
+- Pagination for history page
 
 ## Backend
 - Node, Express.js
