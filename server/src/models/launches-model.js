@@ -79,13 +79,15 @@ async function getLatestFlightNumber() {
     return latestLaunch.flightNumber
 }
 
-async function getAllLaunches(skip, limit) {
-    return await launches
-      .find({}, { '_id': 0, '__v': 0 })
-      .sort({ flightNumber: 1 })
-      .skip(skip)
-      .limit(limit)
-  }
+async function getAllLaunches(skip, limit, sort='asc') {
+  const sortOption = sort === 'desc' ? -1 : 1
+
+  return await launches
+    .find({}, { '_id': 0, '__v': 0 })
+    .sort({ flightNumber: sortOption })
+    .skip(skip)
+    .limit(limit)
+}
 
 async function saveLaunch(launch) {
     await launches.updateOne({
