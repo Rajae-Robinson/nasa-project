@@ -1,9 +1,21 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Appear, Table, Paragraph } from "arwes";
 
 const History = props => {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [launches, setLaunches] = useState([])
+
+  useEffect(() => {
+    async function getPaginatedData() {
+      const data = await props.paginateLaunches({page: currentPage, limit: 10})
+      setLaunches(data)
+    }
+    getPaginatedData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage])
+
   const tableBody = useMemo(() => {
-    return props.launches?.filter((launch) => !launch.upcoming)
+    return launches.filter((launch) => !launch.upcoming)
       .map((launch) => {
         return <tr key={String(launch.flightNumber)}>
           <td>
@@ -18,7 +30,7 @@ const History = props => {
           <td>{launch.customers?.join(", ")}</td>
         </tr>;
       });
-  }, [props.launches]);
+  }, [launches]);
 
   return <article id="history">
     <Appear animate show={props.entered}>
@@ -38,6 +50,11 @@ const History = props => {
           <tbody>
             {tableBody}
           </tbody>
+          <tfoot>
+            <td><button onClick={() => setCurrentPage((old) => Math.max(old - 1, 1))}>Previous</button></td>
+            <td><span>Current Page: {currentPage}</span></td>
+            <td><button onClick={() => setCurrentPage((old) => old + 1 )}>Next</button></td>
+          </tfoot>
         </table>
       </Table>
     </Appear>

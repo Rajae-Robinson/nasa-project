@@ -5,15 +5,15 @@
 Project Description
 
 ## Frontend
-- React 17 (TODO: upgrade to React 18; transition to react-query)
-- Arwes theme
+- React 18
+- Arwes theme (TODO: upgrade)
 - React hooks
 - Login page with Social Sign-on (TODO)
 - Pagination for history page (TODO)
 
 ## Backend
 - Node, Express.js
-- RESTAPI - pagination, filtering, sorting,
+- RESTAPI - pagination, filtering, sorting, rate-limiting (TODO)
 - API Versioning
 - Logging
 - Load Balancing / Clusters
