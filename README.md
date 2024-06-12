@@ -6,7 +6,7 @@ Project Description
 
 ## Frontend
 - React 18
-- Arwes theme (TODO: upgrade)
+- Arwes theme
 - React hooks
 - Login page with Social Sign-on (TODO)
 - Pagination for history page (TODO)
