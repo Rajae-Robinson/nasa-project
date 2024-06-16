@@ -13,7 +13,7 @@ Project Description
 
 ## Backend
 - Node, Express.js
-- RESTAPI - pagination, filtering, sorting, rate-limiting (TODO)
+- RESTAPI - pagination, filtering, sorting, rate-limiting
 - API Versioning
 - Logging
 - Load Balancing / Clusters
@@ -24,4 +24,4 @@ Project Description
 ## CI/CD 
 - GitHub Actions
 - Docker
-- AWS EC2 (http://3.17.142.190:3001/)
+- AWS Deployment (EC2) (http://3.17.142.190:3001/)
