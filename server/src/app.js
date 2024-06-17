@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/v1', v1API)
 
-app.get('/x-forwarded-for', (request, response) => response.send(request.headers['x-forwarded-for']))
+app.get('/ip', (request, response) => response.send(request.ip))
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'))
