@@ -1,4 +1,5 @@
 const path = require('path')
+const fs = require('fs')
 
 const express = require('express')
 const cors = require('cors')
@@ -13,10 +14,13 @@ const app = express()
 
 app.set('trust proxy', 1);
 
+const logDirectory = path.join(__dirname, 'log');
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+
 var accessLogStream = rfs.createStream('access.log', {
     size: '10M',
     interval: '1d', 
-    path: path.join(__dirname, 'log')
+    path: logDirectory
 })
 
 const limiter = rateLimit({
