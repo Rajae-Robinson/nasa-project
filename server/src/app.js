@@ -2,17 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
-const { rateLimit } = require('express-rate-limit');
 const { morganMiddleware } = require('./services/logger');
 const v1API = require('./routes/v1');
+const limiter = require('./services/rate-limit');
 
 const app = express();
-
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    headers: true
-});
 
 // TODO:
 //app.use(helmet())
