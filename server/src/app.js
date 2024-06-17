@@ -19,9 +19,9 @@ const limiter = rateLimit({
 // diasble helmet until SSL setup on prod
 // app.use(helmet())
 
-// app.use(cors({
-//     origin: 'http://localhost:3000'
-// }))
+app.use(cors({
+    origin: 'http://localhost:3000'
+}))
 
 app.use(limiter)
 
