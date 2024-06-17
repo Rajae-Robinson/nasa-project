@@ -2,7 +2,8 @@ const path = require('path')
 const fs = require('fs');
 const { parse } = require('csv-parse');
 
-const planets = require('./planets-mongo')
+const planets = require('./planets-mongo');
+const { logger } = require('../services/logger');
 
 function isHabitablePlanet(planet) {
   return planet['koi_disposition'] === 'CONFIRMED'
@@ -27,7 +28,7 @@ function loadPlanetsData() {
       })
       .on('end', async () => {
         const planetsCount = (await getAllPlanets()).length
-        console.log(`${planetsCount} habitable planets found!`);
+        logger.info(`${planetsCount} habitable planets found!`)
         resolve()
       })})
 }

@@ -7,6 +7,7 @@ const { mongoConnect } = require('./services/mongo')
 
 const { loadPlanetsData } = require('./models/planets-model'); 
 const { loadLaunchData } = require('./models/launches-model');
+const { logger } = require('./services/logger');
 
 const PORT = process.env.PORT || 3001
 const server = http.createServer(app)
@@ -16,7 +17,7 @@ async function loadServerData() {
     await loadPlanetsData()
     await loadLaunchData()
     server.listen(PORT, () => {
-        console.log(`Listening on port ${PORT}...`)
+        logger.info(`Listening on port ${PORT}...`)
     });
 }
 
