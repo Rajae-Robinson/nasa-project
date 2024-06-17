@@ -9,8 +9,6 @@ const v1API = require('./routes/v1')
 
 const app = express()
 
-app.set('trust proxy', 3)
-
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
 	limit: 100, 
@@ -34,9 +32,6 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/v1', v1API)
-
-app.get('/ip', (request, response) => response.send(request.ip))
-app.get('/x-forwarded-for', (request, response) => response.send(request.headers['x-forwarded-for']))
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'))
