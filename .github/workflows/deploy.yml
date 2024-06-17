@@ -35,4 +35,4 @@ jobs:
           docker stop nasa-proj-container || true
           docker rm nasa-proj-container || true
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/nasa-project:latest
-          docker run -d --name nasa-proj-container --restart=always -v /home/ec2-user/logs:/app/server/src/log -e DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }} -p 3001:3001 rajae2024/nasa-project:latest
+          docker run -d --name nasa-proj-container --restart=always -v /app/server/src/log:/home/ec2-user/logs -e DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }} -p 3001:3001 rajae2024/nasa-project:latest
