@@ -9,7 +9,7 @@ const v1API = require('./routes/v1')
 
 const app = express()
 
-app.set('trust proxy', 1)
+app.set('trust proxy', 2)
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
