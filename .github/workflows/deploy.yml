@@ -36,3 +36,6 @@ jobs:
           docker rm nasa-proj-container || true
           docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/nasa-project:latest
           docker run -d --name nasa-proj-container --restart=always -e DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }} -p 3001:3001 rajae2024/nasa-project:latest
+    
+    - name: Prune Docker system
+      run: docker system prune -af
