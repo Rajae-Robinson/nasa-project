@@ -5,11 +5,19 @@ const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const { rateLimit } = require('express-rate-limit')
+var rfs = require('rotating-file-stream')
+
 const v1API = require('./routes/v1')
 
 const app = express()
 
 app.set('trust proxy', 1);
+
+var accessLogStream = rfs.createStream('access.log', {
+    size: '10M',
+    interval: '1d', 
+    path: path.join(__dirname, 'log')
+})
 
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000,
@@ -27,17 +35,18 @@ app.use(cors({
 
 app.use(limiter)
 
-if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+} else {
+    app.use(morgan('combined', { stream: accessLogStream }));
+}
 
 app.use(express.json())
 
 app.use(express.static(path.join(__dirname, '../public')))
 
-app.use((req, res, next) => {
-    console.log(`Request IP: ${req.ip}`);
-    next();
-});
-
+app.get('/ip', (request, response) => response.send(request.ip))
+app.get('/x-forwarded-for', (request, response) => response.send(request.headers['x-forwarded-for']))
 
 app.use('/v1', v1API)
 
