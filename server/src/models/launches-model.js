@@ -1,7 +1,8 @@
 const axios = require('axios')
 
 const launches = require('./launches-mongo')
-const planets = require('./planets-mongo')
+const planets = require('./planets-mongo');
+const { logger } = require('../services/logger');
 
 DEFAULT_FLIGHT_NUMBER = 100
 
@@ -63,7 +64,7 @@ async function loadLaunchData() {
       flightNumber: 1,
     })
     if (firstLaunch) {
-      console.log('Launch data already loaded!')
+      logger.info('Launch data already loaded!')
     } else {
       await populateLaunches()
     }

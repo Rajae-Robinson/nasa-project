@@ -1,53 +1,38 @@
-const path = require('path')
-const fs = require('fs')
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const path = require('path');
+const { rateLimit } = require('express-rate-limit');
+const { morganMiddleware } = require('./services/logger');
+const v1API = require('./routes/v1');
 
-const express = require('express')
-const cors = require('cors')
-const helmet = require('helmet')
-const morgan = require('morgan')
-const { rateLimit } = require('express-rate-limit')
-var rfs = require('rotating-file-stream')
-
-const v1API = require('./routes/v1')
-
-const app = express()
-
-var accessLogStream = rfs.createStream('access.log', {
-    size: '10M',
-    interval: '1d', 
-    path: path.join(__dirname, 'logs')
-})
+const app = express();
 
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000,
-	limit: 100, 
-	standardHeaders: true, 
-	legacyHeaders: false,
-})
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    headers: true
+});
 
-// diasble helmet until SSL setup on prod
-// app.use(helmet())
+// TODO:
+//app.use(helmet())
 
 app.use(cors({
     origin: 'http://localhost:3000'
-}))
+}));
 
-app.use(limiter)
+app.use(limiter);
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'))
-} else {
-    app.use(morgan('combined', { stream: accessLogStream }))
-}
+app.use(morganMiddleware);
 
-app.use(express.json())
+app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/v1', v1API)
+app.use('/v1', v1API);
 
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-})
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
-module.exports = app
+module.exports = app;
