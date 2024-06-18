@@ -15,41 +15,46 @@ const httpFilter = format((info, opts) => {
     return info.level === 'http' ? info : false;
 });
 
+const devTransports = [
+    new transports.Console({
+        format: combine(
+            format.colorize(),
+            myFormat
+        ),
+        level: 'debug'
+    }),
+]
+
+const prodTransports = [
+    new DailyRotateFile({
+        filename: path.join(logDirectory, 'application-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true,
+        maxSize: '20m',
+        maxFiles: '14d',
+        format: combine(
+            timestamp(),
+            myFormat
+        ),
+        level: 'info'
+    }),
+    new DailyRotateFile({
+        filename: path.join(logDirectory, 'request-%DATE%.log'),
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true,
+        maxSize: '20m', 
+        maxFiles: '14d',
+        format: combine(httpFilter(), timestamp(), myFormat),
+        level: 'http'
+    })
+]
+
 const logger = createLogger({
     format: combine(
         timestamp(),
         myFormat
     ),
-    transports: [
-        new transports.Console({
-            format: combine(
-                format.colorize(),
-                myFormat
-            ),
-            level: 'debug'
-        }),
-        new DailyRotateFile({
-            filename: path.join(logDirectory, 'application-%DATE%.log'),
-            datePattern: 'YYYY-MM-DD',
-            zippedArchive: true,
-            maxSize: '20m',
-            maxFiles: '14d',
-            format: combine(
-                timestamp(),
-                myFormat
-            ),
-            level: 'info'
-        }),
-        new DailyRotateFile({
-            filename: path.join(logDirectory, 'request-%DATE%.log'),
-            datePattern: 'YYYY-MM-DD',
-            zippedArchive: true,
-            maxSize: '20m', 
-            maxFiles: '14d',
-            format: combine(httpFilter(), timestamp(), myFormat),
-            level: 'http'
-        })
-    ],
+    transports: process.env.NODE_ENV === 'production' ? prodTransports : devTransports,
     exceptionHandlers: [
         new transports.Console({
             format: combine(
@@ -89,7 +94,6 @@ const errorLogger = createLogger({
         })
     ]
 })
-
 
 const morganMiddleware = morgan(
     ':method :url :status :res[content-length] - :response-time ms',
