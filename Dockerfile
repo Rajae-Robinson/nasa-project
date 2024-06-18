@@ -21,6 +21,6 @@ RUN mkdir -p /app/server/src/services/logs && \
 
 USER node
 
-CMD [ "npm", "start", "--prefix", "server" ]
+CMD [ "npm", "run", "cluster", "--prefix", "server" ]
 
 EXPOSE 3001
