@@ -79,7 +79,7 @@ const logger = createLogger({
 });
 
 const errorLogger = createLogger({
-    level: 'error',
+    level: 'warn',
     format: combine(
         timestamp(),
         myFormat
