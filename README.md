@@ -15,10 +15,11 @@ Project Description
 - Node, Express.js
 - RESTAPI - pagination, filtering, sorting, rate-limiting
 - API Versioning
-- Logging
+- Error Handling
+- Logging (Winston, Morgan)
 - Load Balancing / Clusters
 - Unit Testing - Jest
-- Security - helmet.js, JWT auth, OAuth2, cookie based session storage (TODO)
+- Security - helmet.js, JWT auth, OAuth2 (TODO)
 - MongoDB
 
 ## CI/CD 
