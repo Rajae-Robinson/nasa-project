@@ -19,6 +19,8 @@ COPY server/ server/
 RUN mkdir -p /app/server/src/services/logs && \
     chown -R node:node /app/server/src/services/logs
 
+ENV NODE_ENV=production
+
 USER node
 
 CMD [ "npm", "start", "--prefix", "server" ]

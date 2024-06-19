@@ -9,17 +9,12 @@ const DB = process.env.DB_CONNECTION_STRING;
 const TEST_DB = process.env.TEST_DB_CONNECTION_STRING;
 
 mongoose.connection.on('error', (err) => {
-    console.error(err)
+    errorLogger.error(err)
 })
 
 async function mongoConnect() {
-    try {
-        await mongoose.connect(DB)
-        logger.info('MongoDB successfully connected')
-    } catch(err) {
-        errorLogger.error(err)
-        throw new Error(err)
-    }
+    await mongoose.connect(DB)
+    logger.info('MongoDB successfully connected')
 }
 
 async function mongoConnectTestDB() {
@@ -29,6 +24,7 @@ async function mongoConnectTestDB() {
 
 async function mongoDisconnect() {
     await mongoose.disconnect()
+    logger.info('MongoDB successfully disconnected')
 }
 
 module.exports = {
