@@ -1,6 +1,6 @@
 const launches = require('./launches-schema')
 const planets = require('../planets/planets-schema');
-const { populateLaunches } = require('../../services/tesla-launch-data-service');
+const { populateLaunches } = require('../../services/spacex-launch-data-service');
 const { logger } = require('../../utils/logger');
 
 const DEFAULT_FLIGHT_NUMBER = 100
