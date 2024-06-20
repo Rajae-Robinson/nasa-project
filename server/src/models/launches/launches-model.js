@@ -3,10 +3,23 @@ const planets = require('../planets/planets-schema');
 const { populateLaunches } = require('../../services/tesla-launch-data-service');
 const { logger } = require('../../utils/logger');
 
-DEFAULT_FLIGHT_NUMBER = 100
+const DEFAULT_FLIGHT_NUMBER = 100
 
 async function findLaunch(filter) {
+  try {
     return await launches.findOne(filter);
+  } catch (error) {
+      logger.error('Error finding launch:', error);
+      throw error;
+  }
+}
+
+async function saveLaunch(launch) {
+  await launches.updateOne({
+      flightNumber: launch.flightNumber
+  }, launch, {
+      upsert: true
+  })
 }
 
 async function loadLaunchData() {
@@ -31,21 +44,16 @@ async function getLatestFlightNumber() {
 }
 
 async function getAllLaunches(skip, limit, sort='asc') {
-  const sortOption = sort === 'desc' ? -1 : 1
-
-  return await launches
-    .find({}, { '_id': 0, '__v': 0 })
-    .sort({ flightNumber: sortOption })
-    .skip(skip)
-    .limit(limit)
-}
-
-async function saveLaunch(launch) {
-    await launches.updateOne({
-        flightNumber: launch.flightNumber
-    }, launch, {
-        upsert: true
-    })
+  try {
+    const sortOption = sort === 'desc' ? -1 : 1;
+    return await launches.find({}, { '_id': 0, '__v': 0 })
+        .sort({ flightNumber: sortOption })
+        .skip(skip)
+        .limit(limit);
+  } catch (error) {
+      logger.error('Error getting all launches:', error);
+      throw error;
+  }
 }
 
 async function scheduleNewLaunch(launch) {
@@ -89,5 +97,6 @@ module.exports = {
     loadLaunchData,
     getAllLaunches,
     scheduleNewLaunch,
-    abortLaunch
+    abortLaunch,
+    saveLaunch
 }
