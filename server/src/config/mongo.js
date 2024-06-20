@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 require('dotenv').config();
 
-const { loadPlanetsData } = require('../models/planets-model');
+const { loadPlanetsData } = require('../models/planets/planets-model');
 const { logger, errorLogger } = require('../utils/logger');
 
 const DB = process.env.DB_CONNECTION_STRING;

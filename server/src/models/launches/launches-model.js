@@ -1,8 +1,8 @@
 const axios = require('axios')
 
-const launches = require('./launches-mongo')
-const planets = require('./planets-mongo');
-const { logger } = require('../utils/logger');
+const launches = require('./launches-schema')
+const planets = require('../planets/planets-schema');
+const { logger } = require('../../utils/logger');
 
 DEFAULT_FLIGHT_NUMBER = 100
 

@@ -5,8 +5,8 @@ const http = require('http')
 const app = require('./app')
 const { mongoConnect } = require('./config/mongo')
 
-const { loadPlanetsData } = require('./models/planets-model'); 
-const { loadLaunchData } = require('./models/launches-model');
+const { loadPlanetsData } = require('./models/planets/planets-model'); 
+const { loadLaunchData } = require('./models/launches/launches-model');
 const { logger, errorLogger } = require('./utils/logger');
 
 const PORT = process.env.PORT || 3001

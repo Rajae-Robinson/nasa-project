@@ -1,4 +1,4 @@
-const { getAllLaunches, abortLaunch, scheduleNewLaunch } = require('../../models/launches-model')
+const { getAllLaunches, abortLaunch, scheduleNewLaunch } = require('../../models/launches/launches-model')
 const { getPagination } = require('../../utils/query')
 
 async function httpGetAllLaunches(req, res) {

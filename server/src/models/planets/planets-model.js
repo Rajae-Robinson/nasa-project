@@ -2,8 +2,8 @@ const path = require('path')
 const fs = require('fs');
 const { parse } = require('csv-parse');
 
-const planets = require('./planets-mongo');
-const { logger } = require('../utils/logger');
+const planets = require('./planets-schema');
+const { logger } = require('../../utils/logger');
 
 function isHabitablePlanet(planet) {
   return planet['koi_disposition'] === 'CONFIRMED'
@@ -13,7 +13,7 @@ function isHabitablePlanet(planet) {
 
 function loadPlanetsData() {
     return new Promise((resolve, reject) => { 
-        fs.createReadStream(path.join(__dirname, '..', '..', 'data/kepler_data.csv'))
+        fs.createReadStream(path.join(__dirname, '../../../data/kepler_data.csv'))
       .pipe(parse({
         comment: '#',
         columns: true,
