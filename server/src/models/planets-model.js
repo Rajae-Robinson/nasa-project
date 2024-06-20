@@ -3,7 +3,7 @@ const fs = require('fs');
 const { parse } = require('csv-parse');
 
 const planets = require('./planets-mongo');
-const { logger } = require('../services/logger');
+const { logger } = require('../utils/logger');
 
 function isHabitablePlanet(planet) {
   return planet['koi_disposition'] === 'CONFIRMED'

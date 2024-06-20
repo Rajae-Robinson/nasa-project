@@ -2,11 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
-const { morganMiddleware } = require('./services/logger');
+const { morganMiddleware } = require('./utils/logger');
 const v1API = require('./routes/v1');
-const limiter = require('./services/rate-limit');
-const AppError = require('./services/app-error');
-const globalErrorHandler = require('./services/global-error');
+const limiter = require('./middlewares/rate-limit');
+const AppError = require('./utils/app-error');
+const globalErrorHandler = require('./utils/global-error');
 
 const app = express();
 
