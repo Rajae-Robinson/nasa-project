@@ -13,6 +13,7 @@ Project Description
 
 ## Backend
 - Node, Express.js
+- MVC Architecture
 - RESTAPI - pagination, filtering, sorting, rate-limiting
 - API Versioning
 - Error Handling
