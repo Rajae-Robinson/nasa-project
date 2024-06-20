@@ -18,10 +18,10 @@ Project Description
 - API Versioning
 - Error Handling
 - Logging (Winston, Morgan)
-- Load Balancing / Clusters
+- Clusters with PM2
 - Unit Testing - Jest
 - Security - helmet.js, JWT auth, OAuth2 (TODO)
-- MongoDB
+- MongoDB and Mongoose
 
 ## CI/CD 
 - GitHub Actions
