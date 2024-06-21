@@ -33,7 +33,7 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           # copy log files
-          docker cp nasa-proj-container:/app/server/src/services/logs/. /home/${{ secrets.EC2_USER }}/nasa-project-logs/
+          docker cp nasa-proj-container:/app/server/src/utils/logs/. /home/${{ secrets.EC2_USER }}/nasa-project-logs/
           
           docker stop nasa-proj-container || true
           docker rm nasa-proj-container || true
@@ -42,7 +42,7 @@ jobs:
           docker run -d --name nasa-proj-container --restart=always -e DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }} -p 3001:3001 rajae2024/nasa-project:latest
     
           # Copy initial logs to the new container
-          docker cp /home/${{ secrets.EC2_USER }}/nasa-project-logs/. nasa-proj-container:/app/server/src/services/logs/
+          docker cp /home/${{ secrets.EC2_USER }}/nasa-project-logs/. nasa-proj-container:/app/server/src/utils/logs/
 
     - name: Prune Docker system
       run: docker system prune -af

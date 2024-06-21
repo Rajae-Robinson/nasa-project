@@ -16,8 +16,8 @@ RUN npm run build --prefix client
 COPY server/ server/
 
 # Create the log directory and set permissions
-RUN mkdir -p /app/server/src/services/logs && \
-    chown -R node:node /app/server/src/services/logs
+RUN mkdir -p /app/server/src/utils/logs && \
+    chown -R node:node /app/server/src/utils/logs
 
 ENV NODE_ENV=production
 
