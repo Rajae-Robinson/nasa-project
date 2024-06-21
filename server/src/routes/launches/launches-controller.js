@@ -1,5 +1,6 @@
 const { getAllLaunches, abortLaunch, scheduleNewLaunch } = require('../../models/launches/launches-model')
 const { getPagination } = require('../../utils/query')
+const catchAsync = require("../../utils/catch-async")
 
 async function httpGetAllLaunches(req, res) {
     const { sort } = req.query
@@ -45,7 +46,7 @@ async function httpAddNewLaunch(req, res) {
 }
 
 module.exports = {
-    httpGetAllLaunches,
-    httpAddNewLaunch,
-    httpAbortLaunch
+    httpGetAllLaunches: catchAsync(httpGetAllLaunches),
+    httpAddNewLaunch: catchAsync(httpAddNewLaunch),
+    httpAbortLaunch: catchAsync(httpAbortLaunch)
 }
