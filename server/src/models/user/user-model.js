@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 const User = require("./user-schema");
@@ -26,26 +25,7 @@ async function loginUser({ email, password }) {
     }
 }
 
-const signToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN,
-    });
-};
-
-const createSendToken = (user, statusCode, res) => {
-    const token = signToken(user._id);
-
-    res.status(statusCode).json({
-        status: 'success',
-        token,
-        data: {
-            user,
-        },
-    });
-};
-
 module.exports = {
     createUser,
     loginUser,
-    createSendToken
 }

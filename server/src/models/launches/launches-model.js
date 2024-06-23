@@ -1,26 +1,10 @@
 const launches = require('./launches-schema')
 const planets = require('../planets/planets-schema');
 const { populateLaunches } = require('../../services/spacex-launch-data-service');
+const { saveLaunch, findLaunch } = require('../../services/launch-service')
 const { logger } = require('../../utils/logger');
 
 const DEFAULT_FLIGHT_NUMBER = 100
-
-async function findLaunch(filter) {
-  try {
-    return await launches.findOne(filter);
-  } catch (error) {
-      logger.error('Error finding launch:', error);
-      throw error;
-  }
-}
-
-async function saveLaunch(launch) {
-  await launches.updateOne({
-      flightNumber: launch.flightNumber
-  }, launch, {
-      upsert: true
-  })
-}
 
 async function loadLaunchData() {
     const firstLaunch = await findLaunch({
@@ -97,6 +81,5 @@ module.exports = {
     loadLaunchData,
     getAllLaunches,
     scheduleNewLaunch,
-    abortLaunch,
-    saveLaunch
+    abortLaunch
 }

@@ -1,4 +1,5 @@
-const { createUser, loginUser, createSendToken } = require("../../models/user/user-model");
+const { createUser, loginUser } = require("../../models/user/user-model");
+const { createSendToken } = require("../../services/auth_service")
 const AppError = require("../../utils/app-error")
 const catchAsync = require("../../utils/catch-async");
 
