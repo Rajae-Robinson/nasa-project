@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
                 return el.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
             },
             message: 'Password must contain at least one uppercase letter, one lowercase letter, and one digit'
-        }
+        },
+        select: false,
     },
     passwordConfirm: {
         type: String,
@@ -41,6 +42,23 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
+    }
+}, {
+    toJSON: {
+        transform: function(doc, ret) {
+            delete ret._id;
+            delete ret.__v;
+            delete ret.password;
+            return ret;
+        }
+    },
+    toObject: {
+        transform: function(doc, ret) {
+            delete ret._id;
+            delete ret.__v;
+            delete ret.password;
+            return ret;
+        }
     }
 });
 

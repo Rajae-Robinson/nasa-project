@@ -1,4 +1,5 @@
-const { createUser } = require("../../models/user/user-model");
+const { createUser, loginUser, createSendToken } = require("../../models/user/user-model");
+const AppError = require("../../utils/app-error")
 const catchAsync = require("../../utils/catch-async");
 
 async function signUp(req, res, next) {
@@ -10,19 +11,32 @@ async function signUp(req, res, next) {
             passwordConfirm: req.body.passwordConfirm
         })
     
-        // sanitize and validate
+        createSendToken(newUser, 201, res);
+    } catch(err) {
+        next(err)
+    }
+}
+
+async function login(req, res, next) {
+    const { email, password } = req.body;
     
-        res.status(201).json({
-            status: 'success',
-            data: {
-                user: newUser
-            }
-        })
+    // 1) Check if email and password exist
+    if (!email || !password) {
+        return next(new AppError('Please provide email and password!', 400));
+    }
+
+    try {
+        // 2) Check if user exists && password is correct
+        const user = await loginUser({ email, password });
+
+        // 3) If everything is okay, send token to client
+        createSendToken(user, 200, res);
     } catch(err) {
         next(err)
     }
 }
 
 module.exports = {
-    signUp: catchAsync(signUp)
+    signUp: catchAsync(signUp),
+    login: catchAsync(login)
 }
