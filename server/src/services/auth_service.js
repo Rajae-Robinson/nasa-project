@@ -9,7 +9,7 @@ const signToken = (id) => {
 const createSendToken = (user, statusCode, res) => {
     const token = signToken(user._id);
 
-    res.status(statusCode).json({
+    return res.status(statusCode).json({
         status: 'success',
         token,
         data: {

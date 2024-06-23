@@ -9,22 +9,18 @@ async function httpGetAllLaunches(req, res) {
     return res.status(200).json(launches);
 }
 
-async function httpAbortLaunch(req, res) {
+async function httpAbortLaunch(req, res, next) {
     const id = req.params.id
-    const abortResponse = await abortLaunch(parseInt(id))
 
-    if (abortResponse.code === 404) {
-        return res.status(404).json({status: `Launch with flight number ${id} not found`})
+    try {
+        await abortLaunch(id)
+        return res.status(200).json({status: `Launch with flight number ${id} aborted`})
+    } catch(err) {
+        next(err)
     }
-    
-    if(abortResponse.code === 500) {
-        return res.status(500).json({status: 'Failed to abort launch'})
-    }
-
-    return res.status(200).json({status: `Launch with flight number ${id} aborted`})
 }
 
-async function httpAddNewLaunch(req, res) {
+async function httpAddNewLaunch(req, res, next) {
     const launch = req.body;
 
     if (!launch.mission || !launch.rocket || !launch.launchDate
@@ -41,8 +37,12 @@ async function httpAddNewLaunch(req, res) {
         });
     }
 
-    await scheduleNewLaunch(launch)
-    return res.status(201).json(launch)
+    try {
+        await scheduleNewLaunch(launch)
+        return res.status(201).json(launch)
+    } catch(err) {
+        next(err)
+    }
 }
 
 module.exports = {

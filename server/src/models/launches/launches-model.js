@@ -2,7 +2,8 @@ const launches = require('./launches-schema')
 const planets = require('../planets/planets-schema');
 const { populateLaunches } = require('../../services/spacex-launch-data-service');
 const { saveLaunch, findLaunch } = require('../../services/launch-service')
-const { logger } = require('../../utils/logger');
+const { logger, errorLogger } = require('../../utils/logger');
+const AppError = require('../../utils/app-error');
 
 const DEFAULT_FLIGHT_NUMBER = 100
 
@@ -44,7 +45,7 @@ async function scheduleNewLaunch(launch) {
     const planet = await planets.findOne({keplerName: launch.target})
 
     if (!planet) { 
-        throw new Error('No matching planet was found')
+      throw new AppError('No matching planet was found', 400)
     }
 
     const newFlightNumber = await getLatestFlightNumber() + 1
@@ -56,13 +57,17 @@ async function scheduleNewLaunch(launch) {
         flightNumber: newFlightNumber
     })
 
-    await saveLaunch(newLaunch)
+    try {
+      await saveLaunch(newLaunch)
+    } catch(err) {
+      throw err
+    }   
 }
 
 async function abortLaunch(id) {
     const launch = await launches.findOne({flightNumber: id})
 
-    if(!launch) return {code: 404}
+    if(!launch) throw new AppError(`Launch with flight number ${id} not found`, 404)
 
     launch.upcoming = false
     launch.success = false
@@ -70,11 +75,8 @@ async function abortLaunch(id) {
     try {
         await launch.save()
     } catch(err) {
-        console.error('Error aborting launch:', error);
-        return {code: 500}
+      throw err
     }
-    
-    return {code: 200}
 }
 
 module.exports = {
