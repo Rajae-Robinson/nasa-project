@@ -9,15 +9,11 @@ async function httpGetAllLaunches(req, res) {
     return res.status(200).json(launches);
 }
 
-async function httpAbortLaunch(req, res, next) {
+async function httpAbortLaunch(req, res) {
     const id = req.params.id
 
-    try {
-        await abortLaunch(id)
-        return res.status(200).json({status: `Launch with flight number ${id} aborted`})
-    } catch(err) {
-        next(err)
-    }
+    await abortLaunch(id)
+    return res.status(200).json({status: `Launch with flight number ${id} aborted`})
 }
 
 async function httpAddNewLaunch(req, res, next) {
@@ -37,12 +33,8 @@ async function httpAddNewLaunch(req, res, next) {
         });
     }
 
-    try {
-        await scheduleNewLaunch(launch)
-        return res.status(201).json(launch)
-    } catch(err) {
-        next(err)
-    }
+    await scheduleNewLaunch(launch)
+    return res.status(201).json(launch)
 }
 
 module.exports = {

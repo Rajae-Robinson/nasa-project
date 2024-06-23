@@ -3,19 +3,15 @@ const { createSendToken } = require("../../services/auth_service")
 const AppError = require("../../utils/app-error")
 const catchAsync = require("../../utils/catch-async");
 
-async function signUp(req, res, next) {
-    try {
-        const newUser = await createUser({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            passwordConfirm: req.body.passwordConfirm
-        })
-    
-        createSendToken(newUser, 201, res);
-    } catch(err) {
-        next(err)
-    }
+async function signUp(req, res) {
+    const newUser = await createUser({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        passwordConfirm: req.body.passwordConfirm
+    })
+
+    createSendToken(newUser, 201, res);
 }
 
 async function login(req, res, next) {
@@ -26,15 +22,11 @@ async function login(req, res, next) {
         return next(new AppError('Please provide email and password!', 400));
     }
 
-    try {
-        // 2) Check if user exists && password is correct
-        const user = await loginUser({ email, password });
+    // 2) Check if user exists && password is correct
+    const user = await loginUser({ email, password });
 
-        // 3) If everything is okay, send token to client
-        createSendToken(user, 200, res);
-    } catch(err) {
-        next(err)
-    }
+    // 3) If everything is okay, send token to client
+    createSendToken(user, 200, res);
 }
 
 module.exports = {

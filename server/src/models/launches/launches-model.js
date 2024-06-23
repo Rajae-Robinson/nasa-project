@@ -2,7 +2,7 @@ const launches = require('./launches-schema')
 const planets = require('../planets/planets-schema');
 const { populateLaunches } = require('../../services/spacex-launch-data-service');
 const { saveLaunch, findLaunch } = require('../../services/launch-service')
-const { logger, errorLogger } = require('../../utils/logger');
+const { logger } = require('../../utils/logger');
 const AppError = require('../../utils/app-error');
 
 const DEFAULT_FLIGHT_NUMBER = 100
