@@ -5,12 +5,14 @@ const path = require('path');
 const { morganMiddleware } = require('./utils/logger');
 const v1API = require('./routes/v1');
 const limiter = require('./middlewares/rate-limit');
+const sanitize = require('express-mongo-sanitize')
+const xss = require('xss-clean')
 const AppError = require('./utils/app-error');
 const globalErrorHandler = require('./utils/global-error');
 
 const app = express();
 
-// TODO:
+// TODO: enable in prod when https is set up
 //app.use(helmet())
 
 app.use(cors({
@@ -22,6 +24,12 @@ app.use(limiter);
 app.use(morganMiddleware);
 
 app.use(express.json());
+
+// Data sanitization against NoSQL query injection attack
+app.use(sanitize());
+
+// Data sanitization against XSS
+app.use(xss());
 
 app.use(express.static(path.join(__dirname, '../public')));
 
