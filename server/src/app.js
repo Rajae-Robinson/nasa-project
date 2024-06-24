@@ -31,6 +31,9 @@ app.use(sanitize());
 // Data sanitization against XSS
 app.use(xss());
 
+// prevent parameter pollution
+app.use(hpp())
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/v1', v1API);
