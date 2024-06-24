@@ -7,6 +7,7 @@ const v1API = require('./routes/v1');
 const limiter = require('./middlewares/rate-limit');
 const sanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
+const hpp = require('hpp')
 const AppError = require('./utils/app-error');
 const globalErrorHandler = require('./utils/global-error');
 
