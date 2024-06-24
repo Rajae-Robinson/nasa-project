@@ -9,18 +9,19 @@ Project Description
 - Arwes theme
 - React hooks
 - Login page with Social Sign-on (TODO)
+- UI for protected routes and restricted actions (TODO)
 - Pagination for history page
 
 ## Backend
 - Node, Express.js
 - MVC Architecture
-- RESTAPI - pagination, filtering, sorting, rate-limiting
+- RESTAPI - pagination, filtering, sorting
 - API Versioning
 - Error Handling
 - Logging (Winston, Morgan)
 - Clusters with PM2
 - Unit Testing - Jest
-- Security - helmet.js, JWT auth, OAuth2 (TODO)
+- Security - helmet.js, JWT auth, OAuth2 (TODO), rate limiting, preventing paramter pollution, XSS and NoSQL injection attacks
 - MongoDB and Mongoose
 
 ## CI/CD 
