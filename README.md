@@ -15,7 +15,7 @@ Project Description
 ## Backend
 - Node, Express.js
 - MVC Architecture
-- RESTAPI - pagination, filtering, sorting
+- RESTAPI - pagination, filtering, sorting, forget & update password (TODO)
 - API Versioning
 - Error Handling
 - Logging (Winston, Morgan)
