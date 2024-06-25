@@ -2,6 +2,7 @@ const { createUser, loginUser } = require("../../models/user/user-model");
 const { createSendToken } = require("../../services/auth_service")
 const AppError = require("../../utils/app-error")
 const catchAsync = require("../../utils/catch-async");
+const { logger } = require("../../utils/logger");
 
 async function signUp(req, res) {
     const newUser = await createUser({
@@ -12,6 +13,7 @@ async function signUp(req, res) {
     })
 
     createSendToken(newUser, 201, res);
+    logger.info(`User with email ${req.body.email} created`)
 }
 
 async function login(req, res, next) {
@@ -27,6 +29,7 @@ async function login(req, res, next) {
 
     // 3) If everything is okay, send token to client
     createSendToken(user, 200, res);
+    logger.info(`User with email ${req.body.email} logged in`)
 }
 
 module.exports = {
