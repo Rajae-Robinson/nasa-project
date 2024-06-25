@@ -1,14 +1,12 @@
 const request = require('supertest')
 const app = require('../../app')
-const { getAuthToken } = require('../../utils/test-utils');
 const { mongoConnectTestDB, mongoDisconnect } = require('../../config/mongo'); 
 
 describe('Launches API', () => {
-    let token;
+    let token = process.env.TEST_TOKEN;
 
     beforeAll(async () => {
         await mongoConnectTestDB();
-        token = await getAuthToken();
     });
 
     afterAll(async () => {
