@@ -1,0 +1,35 @@
+# Node modules and build directories
+node_modules
+dist
+build
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+bower_components
+jspm_packages
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+
+# Source control and related
+.git
+.gitignore
+
+# IDE/editor configurations
+.vscode
+.idea
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Miscellaneous
+*.swp
+*.bak
+*.tmp
