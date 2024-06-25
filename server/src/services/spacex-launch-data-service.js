@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { saveLaunch } = require('../models/launches/launches-model');
+const { saveLaunch } = require('./launch-service');
 
 const SPACEX_API_URL = 'https://api.spacexdata.com/v4/launches/query';
 

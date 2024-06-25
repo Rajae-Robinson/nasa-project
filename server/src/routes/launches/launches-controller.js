@@ -1,5 +1,6 @@
 const { getAllLaunches, abortLaunch, scheduleNewLaunch } = require('../../models/launches/launches-model')
 const { getPagination } = require('../../utils/query')
+const catchAsync = require("../../utils/catch-async")
 
 async function httpGetAllLaunches(req, res) {
     const { sort } = req.query
@@ -10,20 +11,12 @@ async function httpGetAllLaunches(req, res) {
 
 async function httpAbortLaunch(req, res) {
     const id = req.params.id
-    const abortResponse = await abortLaunch(parseInt(id))
 
-    if (abortResponse.code === 404) {
-        return res.status(404).json({status: `Launch with flight number ${id} not found`})
-    }
-    
-    if(abortResponse.code === 500) {
-        return res.status(500).json({status: 'Failed to abort launch'})
-    }
-
+    await abortLaunch(id)
     return res.status(200).json({status: `Launch with flight number ${id} aborted`})
 }
 
-async function httpAddNewLaunch(req, res) {
+async function httpAddNewLaunch(req, res, next) {
     const launch = req.body;
 
     if (!launch.mission || !launch.rocket || !launch.launchDate
@@ -45,7 +38,7 @@ async function httpAddNewLaunch(req, res) {
 }
 
 module.exports = {
-    httpGetAllLaunches,
-    httpAddNewLaunch,
-    httpAbortLaunch
+    httpGetAllLaunches: catchAsync(httpGetAllLaunches),
+    httpAddNewLaunch: catchAsync(httpAddNewLaunch),
+    httpAbortLaunch: catchAsync(httpAbortLaunch)
 }
