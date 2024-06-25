@@ -11,7 +11,6 @@ jobs:
     env:
       CI: true
       TEST_DB_CONNECTION_STRING: mongodb://localhost/nasa-test
-      TEST_TOKEN: ${{ secrets.TEST_TOKEN }}
       
     runs-on: ubuntu-latest
 
