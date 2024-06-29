@@ -54,7 +54,7 @@ async function forgotPassword(req, res, next) {
             }
         })
         logger.info(`User with email ${req.body.email} requested a new password`)
-        return res.status(200).json({status: 'success', resetToken, message:'Token sent to email'})
+        return res.status(200).json({status: 'success', message:'Token sent to email'})
     } catch(err) {
         user.passwordResetToken = undefined
         user.passwordResetExpires = undefined
