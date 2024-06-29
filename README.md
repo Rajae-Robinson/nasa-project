@@ -15,13 +15,13 @@ Project Description
 ## Backend
 - Node, Express.js
 - MVC Architecture
-- RESTAPI - pagination, filtering, sorting, forget & update password (TODO)
+- RESTAPI - pagination, filtering, sorting, forget & reset password
 - API Versioning
 - Error Handling
 - Logging (Winston, Morgan)
 - Clusters with PM2
 - Unit Testing - Jest
-- Security - helmet.js, JWT auth, OAuth2 (TODO), rate limiting, preventing paramter pollution, XSS and NoSQL injection attacks
+- Security - helmet.js, token-based authentication (JWT), rate limiting, preventing paramter pollution, XSS and NoSQL injection attacks
 - MongoDB and Mongoose
 
 ## CI/CD 

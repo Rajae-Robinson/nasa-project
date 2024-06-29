@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
             message: 'Passwords do not match'
         }
     },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
     role: {
         type: String,
         enum: ['user', 'admin'],
@@ -49,6 +52,9 @@ const userSchema = new mongoose.Schema({
             delete ret._id;
             delete ret.__v;
             delete ret.password;
+            delete ret.passwordResetToken,
+            delete ret.passwordResetExpires,
+            delete ret.passwordChangedAt
             return ret;
         }
     },
@@ -57,6 +63,9 @@ const userSchema = new mongoose.Schema({
             delete ret._id;
             delete ret.__v;
             delete ret.password;
+            delete ret.passwordResetToken,
+            delete ret.passwordResetExpires,
+            delete ret.passwordChangedAt
             return ret;
         }
     }
@@ -74,6 +83,27 @@ userSchema.pre('save', async function(next) {
     this.passwordConfirm = undefined;
     next();
 });
+
+// Middleware to update passwordChangedAt field
+userSchema.pre('save', function(next) {
+    // Only run this function if password was actually modified and it is not a new user
+    if (!this.isModified('password') || this.isNew) return next();
+  
+    // Set passwordChangedAt to the current time
+    this.passwordChangedAt = Date.now() - 1000; // Subtract 1 second to ensure the token is created after this time
+  
+    next();
+});
+
+// Instance method to check if password was changed after token was issued
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+    if (this.passwordChangedAt) {
+      const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+      return JWTTimestamp < changedTimestamp;
+    }
+    // False means NOT changed
+    return false;
+};
 
 const User = mongoose.model('User', userSchema);
 
