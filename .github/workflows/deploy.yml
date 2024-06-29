@@ -43,8 +43,8 @@ jobs:
             -e DB_CONNECTION_STRING=${{ secrets.DB_CONNECTION_STRING }} \
             -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
             -e JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }} \
-            -e EMAIL_USER=${{ secrets.EMAIL_USER }}
-            -e EMAIL_PASS=${{ secrets.EMAIL_PASS }}
+            -e EMAIL_USER=${{ secrets.EMAIL_USER }} \
+            -e EMAIL_PASS=${{ secrets.EMAIL_PASS }} \
             -p 3001:3001 ${{ secrets.DOCKER_HUB_USERNAME }}/nasa-project:latest
     
           # Copy initial logs to the new container
