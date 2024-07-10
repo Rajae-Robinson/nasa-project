@@ -7,17 +7,17 @@ import { httpResetPassword } from "../hooks/requests";
 const ResetPassword = () => {
   const { token } = useParams();
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
+    if (password !== passwordConfirm) {
       setMessage("Passwords do not match.");
       return;
     }
 
-    const response = await httpResetPassword({token, password, confirmPassword})
+    const response = await httpResetPassword({token, password, passwordConfirm})
 
     if (response.ok) {
       setMessage("Your password has been reset successfully.");
@@ -51,8 +51,8 @@ const ResetPassword = () => {
                   id="confirm-password"
                   required
                   style={{ width: "100%", padding: "10px", border: "none", borderRadius: "5px", marginTop: "5px", marginBottom: "10px" }}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  value={passwordConfirm}
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
                 />
               </Frame>
               <Button animate type="submit" layer="success">

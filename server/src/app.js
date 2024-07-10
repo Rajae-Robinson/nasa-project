@@ -39,13 +39,13 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/v1', v1API);
 
-app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.url} on this server`, 404))
-})
-
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/index.html'));
 });
+
+app.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.url} on this server`, 404))
+})
 
 app.use(globalErrorHandler)
 
