@@ -8,8 +8,8 @@ Project Description
 - React 18
 - Arwes theme
 - React hooks
-- Login page with Social Sign-on (TODO)
-- UI for protected routes and restricted actions (TODO)
+- Login & SignUp
+- UI for protected routes and restricted actions
 - Pagination for history page
 
 ## Backend
