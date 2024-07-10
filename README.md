@@ -8,8 +8,8 @@ Project Description
 - React 18
 - Arwes theme
 - React hooks
-- Login page with Social Sign-on (TODO)
-- UI for protected routes and restricted actions (TODO)
+- Login & SignUp
+- UI for protected routes and restricted actions
 - Pagination for history page
 
 ## Backend
@@ -23,6 +23,19 @@ Project Description
 - Unit Testing - Jest
 - Security - helmet.js, token-based authentication (JWT), rate limiting, preventing paramter pollution, XSS and NoSQL injection attacks
 - MongoDB and Mongoose
+
+Environment Variables:
+
+```
+
+DB_CONNECTION_STRING
+TEST_DB_CONNECTION_STRING
+JWT_SECRET
+JWT_EXPIRES_IN
+EMAIL_USER
+EMAIL_PASS
+
+```
 
 ## CI/CD 
 - GitHub Actions

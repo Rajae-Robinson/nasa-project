@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import Clickable from "./Clickable";
 import Centered from "./Centered";
+import { useAuth } from '../context/authContext';
 
 const styles = theme => ({
   root: {
@@ -30,10 +31,10 @@ const styles = theme => ({
     fontSize: 28,
   },
   clickable: {
-    fontSize: 21,
+    fontSize: 16,
     "& i": {
       marginRight: theme.padding / 2,
-      fontSize: 24,
+      fontSize: 18,
     },
   },
   link: {
@@ -57,13 +58,19 @@ const styles = theme => ({
       padding: [0, 8],
     },
     clickable: {
-      fontSize: 16,
+      fontSize: 14,
     }
   },
 });
 
 const Header = props => {
   const { classes, onNav, ...rest } = props;
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return <ArwesHeader animate>
     <Centered className={classes.root} {...rest}>
       <img src="/favicon.png" alt="" className={classes.img} style={{
@@ -94,6 +101,13 @@ const Header = props => {
             <Link className={classes.link} to="/history">
             <i className="material-icons">history</i>History</Link>
           </Highlight>
+        </Clickable>
+        <Clickable className={classes.clickable} onClick={handleLogout}>
+            <Highlight className={classes.button} animate layer="header">
+              <Link className={classes.link} to="/auth">
+                <i className="material-icons">exit_to_app</i>Logout
+              </Link>
+            </Highlight>
         </Clickable>
       </nav>
     </Centered>

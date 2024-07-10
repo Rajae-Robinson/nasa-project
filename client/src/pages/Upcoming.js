@@ -9,6 +9,7 @@ import {
 } from "arwes";
 
 import Clickable from "../components/Clickable";
+import { useAuth } from '../context/authContext';
 
 const styles = () => ({
   link: {
@@ -24,18 +25,19 @@ const Upcoming = props => {
     classes,
     abortLaunch,
   } = props;
+  const { user } = useAuth();
 
   const tableBody = useMemo(() => {
     return launches?.filter((launch) => launch.upcoming && new Date(launch.launchDate) > new Date())
       .map((launch) => {
         return <tr key={String(launch.flightNumber)}>
-          <td>
+          {user ? <td>
             <Clickable style={{color:"red"}}>
               <Link className={classes.link} onClick={() => abortLaunch(launch.flightNumber)}>
                 ✖
               </Link>
             </Clickable>
-          </td>
+          </td> : <td></td>}
           <td>{launch.flightNumber}</td>
           <td>{new Date(launch.launchDate).toDateString()}</td>
           <td>{launch.mission}</td>
@@ -43,7 +45,7 @@ const Upcoming = props => {
           <td>{launch.target}</td>
         </tr>;
       });
-  }, [launches, abortLaunch, classes.link]);
+  }, [launches, user, classes.link, abortLaunch]);
 
   return <Appear id="upcoming" animate show={entered}>
     <Paragraph>Upcoming missions including both SpaceX launches and newly scheduled Zero to Mastery rockets.</Paragraph>

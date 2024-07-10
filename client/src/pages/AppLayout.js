@@ -21,6 +21,10 @@ import Footer from "../components/Footer";
 import Launch from "./Launch";
 import History from "./History";
 import Upcoming from "./Upcoming";
+import SignupLogin from "./SignupLogin";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
+import PrivateRoute from "../utils/PrivateRoute";
 
 const styles = () => ({
   content: {
@@ -71,19 +75,23 @@ const AppLayout = props => {
         {anim => (
           <div style={{padding: "20px"}}>
           <Switch>
-            <Route exact path="/">
-              <Launch 
-                entered={anim.entered}
-                planets={planets}
-                submitLaunch={submitLaunch}
-                isPendingLaunch={isPendingLaunch} />
-            </Route>
-            <Route exact path="/launch">
+          <Route exact path="/">
+            <PrivateRoute>
               <Launch
-                entered={anim.entered}
-                planets={planets}
-                submitLaunch={submitLaunch}
-                isPendingLaunch={isPendingLaunch} />
+                    entered={anim.entered}
+                    planets={planets}
+                    submitLaunch={submitLaunch}
+                    isPendingLaunch={isPendingLaunch} />
+            </PrivateRoute>
+            </Route>
+          <Route exact path="/launch">
+            <PrivateRoute>
+              <Launch
+                    entered={anim.entered}
+                    planets={planets}
+                    submitLaunch={submitLaunch}
+                    isPendingLaunch={isPendingLaunch} />
+            </PrivateRoute>
             </Route>
             <Route exact path="/upcoming">
               <Upcoming
@@ -93,6 +101,15 @@ const AppLayout = props => {
             </Route>
             <Route exact path="/history">
               <History entered={anim.entered} paginateLaunches={paginateLaunches}/>
+            </Route>
+            <Route exact path="/auth">
+                <SignupLogin />
+            </Route>
+            <Route exact path="/forgot-password">
+              <ForgotPassword />
+            </Route>
+            <Route exact path="/reset-password/:token">
+              <ResetPassword />
             </Route>
           </Switch>
           </div>

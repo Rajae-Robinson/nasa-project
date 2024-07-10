@@ -11,6 +11,7 @@ async function createUser({name, email, password, passwordConfirm}) {
         return await User.create({name, email, password, passwordConfirm})
     } catch(err) {
         if (err.code === 11000) throw new AppError('Email already exists', 409)
+        if (err.name === 'ValidationError') throw new AppError(err.message, 400)
         throw err
     }
 }
