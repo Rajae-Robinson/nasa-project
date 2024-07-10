@@ -12,19 +12,23 @@ import {
 import AppLayout from "./pages/AppLayout";
 
 import { theme, resources, sounds } from "./settings";
+import { AuthProvider } from "./context/authContext";
 
 const App = () => {
-  return <ThemeProvider theme={createTheme(theme)}>
-    <SoundsProvider sounds={createSounds(sounds)}>
-      <Arwes animate background={resources.background.large} pattern={resources.pattern}>
-        {anim => (
-          <Router>
-            <AppLayout show={anim.entered} />
-          </Router>
-        )}
-      </Arwes>
-    </SoundsProvider>
-  </ThemeProvider>;
+  return (
+  <AuthProvider> 
+    <ThemeProvider theme={createTheme(theme)}>
+      <SoundsProvider sounds={createSounds(sounds)}>
+        <Arwes animate background={resources.background.large} pattern={resources.pattern}>
+          {anim => (
+            <Router>
+              <AppLayout show={anim.entered} />
+            </Router>
+          )}
+        </Arwes>
+      </SoundsProvider>
+    </ThemeProvider>
+  </AuthProvider>);
 };
 
 export default App;
