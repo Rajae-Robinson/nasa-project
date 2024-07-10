@@ -40,7 +40,7 @@ async function forgotPassword(req, res, next) {
 
     const resetToken = await generateResetToken({email})
 
-    const resetURL = `http://${req.headers.host}/v1/auth/reset-password/${resetToken}`;
+    const resetURL = `http://${req.headers.host}/reset-password/${resetToken}`;
     const message = `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
                     Please click on the following link, or paste this into your browser to complete the process:\n\n
                     ${resetURL}\n\n The reset token expires in 10 minutes. If you did not request this, please ignore this email and your password will remain unchanged.\n`
