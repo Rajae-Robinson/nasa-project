@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Frame, Button, Appear, Paragraph } from "arwes";
 import Centered from "../components/Centered";
+import { httpLogin, httpSignUp } from "../hooks/requests";
+import { useAuth } from '../context/authContext';
 
 const SignupLogin = () => {
   const history = useHistory();
+  const { login } = useAuth();
   const [isSignup, setIsSignup] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,18 +22,17 @@ const SignupLogin = () => {
     let response
 
     if (isSignup) {
-      // call httpSignUp() hook, if response ok, redirect user to home page
-
+      response = await httpSignUp({name, email, password, confirmPassword})
     } else {
-      // call httpSignUp() hook, if response ok, redirect user to home page
+      response = await httpLogin({email, password})
     }
 
     if (response.ok) {
       const userData = await response.json();
-     // login(userData); // Set the user data in the context
-      history.push("/"); // Redirect to the home page
+      login(userData); 
+      history.push("/");
     } else {
-      // Handle authentication error
+      alert(response.message)
     }
   };
 
@@ -44,6 +47,20 @@ const SignupLogin = () => {
           <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
             <form onSubmit={handleSubmit}>
               <Paragraph>{isSignup ? "Sign Up" : "Login"}</Paragraph>
+              {isSignup && (
+                <>
+                  <label htmlFor="name">Name</label>
+                  <Frame animate level={1} corners={3} layer="secondary">
+                    <input
+                      id="name"
+                      required
+                      style={{ width: "100%", padding: "10px", border: "none", borderRadius: "5px", marginTop: "5px", marginBottom: "10px" }}
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </Frame>
+                </>
+              )}
               <label htmlFor="email">Email</label>
               <Frame animate level={1} corners={3} layer="secondary">
                 <input
