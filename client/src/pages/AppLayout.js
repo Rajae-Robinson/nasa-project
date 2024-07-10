@@ -24,6 +24,7 @@ import Upcoming from "./Upcoming";
 import SignupLogin from "./SignupLogin";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import PrivateRoute from "../utils/PrivateRoute";
 
 const styles = () => ({
   content: {
@@ -74,20 +75,24 @@ const AppLayout = props => {
         {anim => (
           <div style={{padding: "20px"}}>
           <Switch>
-            <Route exact path="/">
-              <Launch 
+            <PrivateRoute
+              exact
+              path="/"
+              component={Launch}
+              entered={anim.entered}
+              planets={planets}
+              submitLaunch={submitLaunch}
+              isPendingLaunch={isPendingLaunch}
+            />
+            <PrivateRoute
+                exact
+                path="/launch"
+                component={Launch}
                 entered={anim.entered}
                 planets={planets}
                 submitLaunch={submitLaunch}
-                isPendingLaunch={isPendingLaunch} />
-            </Route>
-            <Route exact path="/launch">
-              <Launch
-                entered={anim.entered}
-                planets={planets}
-                submitLaunch={submitLaunch}
-                isPendingLaunch={isPendingLaunch} />
-            </Route>
+                isPendingLaunch={isPendingLaunch}
+            />
             <Route exact path="/upcoming">
               <Upcoming
                 entered={anim.entered}
