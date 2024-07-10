@@ -75,24 +75,24 @@ const AppLayout = props => {
         {anim => (
           <div style={{padding: "20px"}}>
           <Switch>
-            <PrivateRoute
-              exact
-              path="/"
-              component={Launch}
-              entered={anim.entered}
-              planets={planets}
-              submitLaunch={submitLaunch}
-              isPendingLaunch={isPendingLaunch}
-            />
-            <PrivateRoute
-                exact
-                path="/launch"
-                component={Launch}
-                entered={anim.entered}
-                planets={planets}
-                submitLaunch={submitLaunch}
-                isPendingLaunch={isPendingLaunch}
-            />
+          <Route exact path="/">
+            <PrivateRoute>
+              <Launch
+                    entered={anim.entered}
+                    planets={planets}
+                    submitLaunch={submitLaunch}
+                    isPendingLaunch={isPendingLaunch} />
+            </PrivateRoute>
+            </Route>
+          <Route exact path="/launch">
+            <PrivateRoute>
+              <Launch
+                    entered={anim.entered}
+                    planets={planets}
+                    submitLaunch={submitLaunch}
+                    isPendingLaunch={isPendingLaunch} />
+            </PrivateRoute>
+            </Route>
             <Route exact path="/upcoming">
               <Upcoming
                 entered={anim.entered}

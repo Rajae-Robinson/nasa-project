@@ -31,13 +31,13 @@ const Upcoming = props => {
     return launches?.filter((launch) => launch.upcoming && new Date(launch.launchDate) > new Date())
       .map((launch) => {
         return <tr key={String(launch.flightNumber)}>
-          {user && <td>
+          {user ? <td>
             <Clickable style={{color:"red"}}>
               <Link className={classes.link} onClick={() => abortLaunch(launch.flightNumber)}>
                 ✖
               </Link>
             </Clickable>
-          </td>}
+          </td> : <td></td>}
           <td>{launch.flightNumber}</td>
           <td>{new Date(launch.launchDate).toDateString()}</td>
           <td>{launch.mission}</td>

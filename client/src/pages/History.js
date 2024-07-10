@@ -58,15 +58,15 @@ const History = props => {
             {tableBody}
           </tbody>
           <tfoot>
-            <td colspan="2">
+            <td colSpan="2">
               <button style={buttonStyle} onClick={() => setCurrentPage((old) => Math.max(old - 1, 1))}>
               {'<< Previous'}
               </button>
             </td>
-            <td colspan="2" style={{ textAlign: "center" }}>
+            <td colSpan="2" style={{ textAlign: "center" }}>
               <span>Current Page: {currentPage}</span>
             </td>
-            <td colspan="2" style={{ textAlign: "right" }}>
+            <td colSpan="2" style={{ textAlign: "right" }}>
               <button style={buttonStyle} onClick={() => setCurrentPage((old) => old + 1 )}>
                 {'Next >>'}
               </button>

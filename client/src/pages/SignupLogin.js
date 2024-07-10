@@ -12,7 +12,7 @@ const SignupLogin = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const toggleSignup = () => setIsSignup(!isSignup);
 
@@ -22,14 +22,14 @@ const SignupLogin = () => {
     let response
 
     if (isSignup) {
-      response = await httpSignUp({name, email, password, confirmPassword})
+      response = await httpSignUp({name, email, password, passwordConfirm})
     } else {
       response = await httpLogin({email, password})
     }
 
-    if (response.ok) {
-      const userData = await response.json();
-      login(userData); 
+    console.log(response)
+    if (response.status === "success") {
+      login(response.token); 
       history.push("/");
     } else {
       alert(response.message)
@@ -92,8 +92,8 @@ const SignupLogin = () => {
                       id="confirm-password"
                       required
                       style={{ width: "100%", padding: "10px", border: "none", borderRadius: "5px", marginTop: "5px", marginBottom: "10px" }}
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      value={passwordConfirm}
+                      onChange={(e) => setPasswordConfirm(e.target.value)}
                     />
                   </Frame>
                 </>
