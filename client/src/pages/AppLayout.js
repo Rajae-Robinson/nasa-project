@@ -22,6 +22,8 @@ import Launch from "./Launch";
 import History from "./History";
 import Upcoming from "./Upcoming";
 import SignupLogin from "./SignupLogin";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 
 const styles = () => ({
   content: {
@@ -97,6 +99,12 @@ const AppLayout = props => {
             </Route>
             <Route exact path="/auth">
                 <SignupLogin />
+            </Route>
+            <Route exact path="/forgot-password">
+              <ForgotPassword />
+            </Route>
+            <Route exact path="/reset-password/:token">
+              <ResetPassword />
             </Route>
           </Switch>
           </div>

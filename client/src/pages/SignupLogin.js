@@ -12,18 +12,29 @@ const SignupLogin = () => {
 
   const toggleSignup = () => setIsSignup(!isSignup);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here
+
+    let response
+
     if (isSignup) {
-      // Signup logic
+      // call httpSignUp() hook, if response ok, redirect user to home page
+
     } else {
-      // Login logic
+      // call httpSignUp() hook, if response ok, redirect user to home page
+    }
+
+    if (response.ok) {
+      const userData = await response.json();
+     // login(userData); // Set the user data in the context
+      history.push("/"); // Redirect to the home page
+    } else {
+      // Handle authentication error
     }
   };
 
   const handleForgotPassword = () => {
-    // Forgot password logic
+    history.push("/forgot-password");
   };
 
   return (
