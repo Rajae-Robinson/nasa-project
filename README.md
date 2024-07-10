@@ -24,6 +24,19 @@ Project Description
 - Security - helmet.js, token-based authentication (JWT), rate limiting, preventing paramter pollution, XSS and NoSQL injection attacks
 - MongoDB and Mongoose
 
+Environment Variables:
+
+```
+
+DB_CONNECTION_STRING
+TEST_DB_CONNECTION_STRING
+JWT_SECRET
+JWT_EXPIRES_IN
+EMAIL_USER
+EMAIL_PASS
+
+```
+
 ## CI/CD 
 - GitHub Actions
 - Docker
