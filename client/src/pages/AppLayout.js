@@ -21,6 +21,7 @@ import Footer from "../components/Footer";
 import Launch from "./Launch";
 import History from "./History";
 import Upcoming from "./Upcoming";
+import SignupLogin from "./SignupLogin";
 
 const styles = () => ({
   content: {
@@ -93,6 +94,9 @@ const AppLayout = props => {
             </Route>
             <Route exact path="/history">
               <History entered={anim.entered} paginateLaunches={paginateLaunches}/>
+            </Route>
+            <Route exact path="/auth">
+                <SignupLogin />
             </Route>
           </Switch>
           </div>
