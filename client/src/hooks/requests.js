@@ -1,9 +1,11 @@
-let API_BASE_URL = 'v1'
+let API_BASE_URL
 
 const token = localStorage.getItem('token');
 
 if (process.env.NODE_ENV === 'development') {
   API_BASE_URL = 'http://localhost:3001/v1'
+} else {
+  API_BASE_URL = 'http://3.17.142.190:3001/v1';
 }
 
 // AUTH
