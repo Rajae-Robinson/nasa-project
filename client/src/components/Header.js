@@ -65,7 +65,7 @@ const styles = theme => ({
 
 const Header = props => {
   const { classes, onNav, ...rest } = props;
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -102,13 +102,15 @@ const Header = props => {
             <i className="material-icons">history</i>History</Link>
           </Highlight>
         </Clickable>
-        <Clickable className={classes.clickable} onClick={handleLogout}>
-            <Highlight className={classes.button} animate layer="header">
-              <Link className={classes.link} to="/auth">
-                <i className="material-icons">exit_to_app</i>Logout
-              </Link>
-            </Highlight>
-        </Clickable>
+        {
+          user && <Clickable className={classes.clickable} onClick={handleLogout}>
+          <Highlight className={classes.button} animate layer="header">
+            <Link className={classes.link} to="/auth">
+              <i className="material-icons">exit_to_app</i>Logout
+            </Link>
+          </Highlight>
+          </Clickable>
+        }
       </nav>
     </Centered>
   </ArwesHeader>

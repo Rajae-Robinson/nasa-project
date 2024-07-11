@@ -54,7 +54,7 @@ async function httpForgotPassword({ email }) {
 
 async function httpResetPassword({token, password, passwordConfirm}) {
   try {
-    return await fetch(`${API_BASE_URL}/auth/reset-password/${token}`, {
+    const response = await fetch(`${API_BASE_URL}/auth/reset-password/${token}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +62,7 @@ async function httpResetPassword({token, password, passwordConfirm}) {
       },
       body: JSON.stringify({ password, passwordConfirm }),
     })
+    return await response.json()
   } catch(err) {
     return { ok: false }
   }

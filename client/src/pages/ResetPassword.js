@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Frame, Button, Appear, Paragraph } from "arwes";
 import Centered from "../components/Centered";
 import { useParams } from "react-router-dom";
 import { httpResetPassword } from "../hooks/requests";
+import { useAuth } from '../context/authContext';
 
 const ResetPassword = () => {
+  const history = useHistory();
   const { token } = useParams();
+  const { login } = useAuth();
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [message, setMessage] = useState("");
@@ -19,10 +23,12 @@ const ResetPassword = () => {
 
     const response = await httpResetPassword({token, password, passwordConfirm})
 
-    if (response.ok) {
+    if (response.status === "success") {
       setMessage("Your password has been reset successfully.");
+      login(response.jwtToken)
+      history.push("/");
     } else {
-      setMessage("There was an error resetting your password. Please try again.");
+      setMessage(response.message);
     }
   };
 
