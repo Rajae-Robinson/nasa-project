@@ -8,6 +8,6 @@ authRouter.post('/signup', signUp)
 authRouter.post('/login', login)
 
 authRouter.post('/forgot-password', forgotPasswordLimiter, forgotPassword)
-authRouter.patch('/reset-password/:token', resetPassword)
+authRouter.patch('/reset-password/:token', resetPasswordLimiter, resetPassword)
 
 module.exports = authRouter
