@@ -43,3 +43,5 @@ EMAIL_PASS
 - AWS Deployment (EC2) ~~(http://3.17.142.190:3001/)~~
 
 **Deployment moved to Render.com free tier @ (https://nasa-project-cxya.onrender.com)**
+
+Due to cold starts requests may be delayed if the site has not been access after a while. Close tab, reopen and try again.
