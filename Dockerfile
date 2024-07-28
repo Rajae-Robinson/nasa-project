@@ -1,3 +1,5 @@
+# syntax = docker/dockerfile:1.2
+
 FROM node:lts-alpine
 
 WORKDIR /app
@@ -14,6 +16,8 @@ COPY client/ client/
 RUN npm run build --prefix client
 
 COPY server/ server/
+
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 
 # Create the log directory and set permissions
 RUN mkdir -p /app/server/src/utils/logs && \
