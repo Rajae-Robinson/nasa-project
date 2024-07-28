@@ -40,4 +40,6 @@ EMAIL_PASS
 ## CI/CD 
 - GitHub Actions
 - Docker
-- AWS Deployment (EC2) (http://3.17.142.190:3001/)
+- AWS Deployment (EC2) ~~(http://3.17.142.190:3001/)~~
+
+**Deployment moved to Render.com free tier @ (https://nasa-project-cxya.onrender.com)**

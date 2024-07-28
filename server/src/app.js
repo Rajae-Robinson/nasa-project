@@ -13,8 +13,7 @@ const globalErrorHandler = require('./utils/global-error');
 
 const app = express();
 
-// TODO: enable in prod when https is set up
-//app.use(helmet())
+app.use(helmet())
 
 app.use(cors({
     origin: 'http://localhost:3000'
