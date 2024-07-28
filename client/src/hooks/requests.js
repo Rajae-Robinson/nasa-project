@@ -5,7 +5,7 @@ const token = localStorage.getItem('token');
 if (process.env.NODE_ENV === 'development') {
   API_BASE_URL = 'http://localhost:3001/v1'
 } else {
-  API_BASE_URL = 'http://3.17.142.190:3001/v1';
+  API_BASE_URL = 'https://nasa-project-cxya.onrender.com/v1';
 }
 
 // AUTH

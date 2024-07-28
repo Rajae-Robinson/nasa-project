@@ -23,8 +23,6 @@ RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env cat /etc/secrets/.env
 RUN mkdir -p /app/server/src/utils/logs && \
     chown -R node:node /app/server/src/utils/logs
 
-# ENV NODE_ENV=production
-
 USER node
 
 CMD [ "npm", "start", "--prefix", "server" ]
